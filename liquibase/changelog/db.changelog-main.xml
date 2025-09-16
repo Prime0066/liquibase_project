@@ -5,15 +5,14 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="1" author="prime">
-        <createTable tableName="users">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="email" type="varchar(100)"/>
-        </createTable>
+    <changeSet id="2" author="prime">
+        <sql>
+            CREATE TABLE prime (
+                id INT PRIMARY KEY NOT NULL,
+                name VARCHAR(50) NOT NULL,
+                last_name VARCHAR(50) NOT NULL,
+                role VARCHAR(50) NOT NULL
+            );
+        </sql>
     </changeSet>
 </databaseChangeLog>
