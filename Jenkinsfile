@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21' // Adjust to your Java installation path
-        PATH = "${JAVA_HOME}\\bin;${PATH}"
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21' // Adjust to your Java 21 path
+        PATH = "${JAVA_HOME}\\bin;C:\\Program Files\\liquibase;${PATH}" // Add Liquibase to PATH
     }
     stages {
         stage('Checkout SCM') {
@@ -16,7 +16,7 @@ pipeline {
                     script {
                         bat 'dir lib' // Debug: List files in lib directory
                         bat 'java -version'
-                        bat 'java -jar lib/liquibase.jar --version'
+                        bat 'liquibase --version' // Use installed Liquibase
                     }
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 dir('liquibase') {
                     script {
-                        bat 'java -jar lib/liquibase.jar --defaultsFile=config/liquibase.properties update'
+                        bat 'liquibase --defaultsFile=config/liquibase.properties update'
                     }
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 dir('liquibase') {
                     script {
-                        bat 'java -jar lib/liquibase.jar --defaultsFile=config/liquibase.properties status'
+                        bat 'liquibase --defaultsFile=config/liquibase.properties status'
                     }
                 }
             }
